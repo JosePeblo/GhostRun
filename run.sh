@@ -1,4 +1,3 @@
 #!/usr/bin/bash
-g++ -c main.cpp -Isrc/clases -Isrc/include 
-g++ main.o -o main -Lsrc/lib -lsfml-graphics -lsfml-window -lsfml-system
-.\main.out
+g++ main.cpp -Isrc/clases -Isrc/include -o main -lsfml-graphics -lsfml-window -lsfml-system
+./main
