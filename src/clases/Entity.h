@@ -42,7 +42,7 @@ Entity::Entity(float posX, float posY, float scale_, std::string texturePath)
     position.y = posY;
     textPath = texturePath;
     std::cout<<textPath<<"\n";
-    scale = sf::Vector2(scale_,scale_);
+    scale = sf::Vector2f(scale_,scale_);
     this->entity.setPosition(position);
     this->initTexture();
     this->initSprite();
@@ -68,16 +68,16 @@ void Entity::move(char direction)
     switch (direction)
     {
     case 'u':
-        position.y -= 7.f;
-    break;
-    case 'd':
         position.y += 7.f;
     break;
+    case 'd':
+        position.y -= 7.f;
+    break;
     case 'l':
-        position.x -= 7.f;
+        position.x += 7.f;
     break;
     case 'r':
-        position.x += 7.f;
+        position.x -= 7.f;
     break;
     }
     this->entity.setPosition(position);

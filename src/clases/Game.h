@@ -93,13 +93,13 @@ void Game::pollEvents()
 }
 void Game::onUpdate()
 {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
         this->player->move('u');
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
         this->player->move('d');
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
         this->player->move('r');
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
         this->player->move('l');
     
     this->pollEvents();
