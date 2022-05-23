@@ -1,12 +1,13 @@
 #ifndef GAME_H
 #define GAME_H
-
-
+/*
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
+*/
+#include <iostream>
 
 #include <Player.h>
 
@@ -14,14 +15,17 @@ class Game
 {
     private:
     // Variables
+    sf::VideoMode videoMode; //Probablemente quitalas
+    sf::Event ev;   ///////////////////////////////
+
     sf::RenderWindow* window;
-    sf::VideoMode videoMode;
-    sf::Event ev;
-    Player bob;
+    Player* player;
+    Player* bob;
 
     // Private Functions
     void initVariables();
     void initWindow();
+    void initPlayer();
 
     public:
     // Constructores y destructores
@@ -29,13 +33,10 @@ class Game
     ~Game();
     // Metodos
     const bool getWindowIsOpen() const;
-    void initPlayer();
     void pollEvents();
     void onUpdate();
     void onRender();
 };
-
-// Constructores
 Game::Game()
 {
     this->initVariables();
@@ -44,6 +45,7 @@ Game::Game()
 }
 Game::~Game()
 {
+    delete this->player;
     delete this->window;
 }
 //Funciones privadas
@@ -53,22 +55,24 @@ const bool Game::getWindowIsOpen() const
 }
 void Game::initPlayer()
 {
-    bob.setPos(100.f,230.f);
-    bob.setSize(100.f);
-    
+    this->player = new Player(0.f,0.f,64.f,"assets/textures/map.png");
+    this->bob = new Player(320.f,320.f,1.f,"assets/textures/void.png");
 }
 
 void Game::initVariables()
 {
+    this->bob = nullptr;
+    this->player = nullptr;
     this->window = nullptr;
 }
 void Game::initWindow()
 {
-    this->videoMode.height = 480;
-    this->videoMode.width = 640;
+    this->videoMode.height = 704;
+    this->videoMode.width = 704;
     this->window = new sf::RenderWindow(this->videoMode, "Totally not pokemon", sf::Style::Titlebar | sf::Style::Close);
-    this->window->setFramerateLimit(144);    
+    this->window->setFramerateLimit(60);    
 }
+
 // Metodos
 void Game::pollEvents()
 {
@@ -89,15 +93,15 @@ void Game::pollEvents()
 }
 void Game::onUpdate()
 {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-    {
-        bob.setPos(140.f,0.f);
-    }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-    {
-        bob.setPos(0.f,0.f);
-    }
-
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+        this->player->move('u');
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+        this->player->move('d');
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        this->player->move('r');
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+        this->player->move('l');
+    
     this->pollEvents();
 }
 /**
@@ -110,10 +114,10 @@ void Game::onRender()
 {
     this->window->clear(); // Clear old frame
     // Draw game objets
-    this->window->draw(this->bob.getPlayer());
+    this->player->render(*this->window);
+    this->bob->render(*this->window);
     this->window->display(); // Tell the app that the window is done drawing
 }
-
 
 
 #endif
