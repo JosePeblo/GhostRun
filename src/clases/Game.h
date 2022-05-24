@@ -19,8 +19,8 @@ class Game
     sf::Event ev;   ///////////////////////////////
 
     sf::RenderWindow* window;
+    Player* background;
     Player* player;
-    Player* bob;
 
     // Private Functions
     void initVariables();
@@ -34,37 +34,44 @@ class Game
     // Metodos
     const bool getWindowIsOpen() const;
     void pollEvents();
+    void onInput();
     void onUpdate();
     void onRender();
 };
+
 Game::Game()
 {
     this->initVariables();
     this->initWindow();
     this->initPlayer();
 }
+
 Game::~Game()
 {
+    delete this->background;
     delete this->player;
     delete this->window;
 }
+
 //Funciones privadas
 const bool Game::getWindowIsOpen() const
 {
     return this->window->isOpen();
 }
+
 void Game::initPlayer()
 {
-    this->player = new Player(0.f,0.f,64.f,"assets/textures/map.png");
-    this->bob = new Player(320.f,320.f,1.f,"assets/textures/void.png");
+    this->background = new Player(0.f,0.f,64.f,"assets/textures/map.png");
+    this->player = new Player(320.f,320.f,1.f,"assets/textures/player.png");
 }
 
 void Game::initVariables()
 {
-    this->bob = nullptr;
     this->player = nullptr;
+    this->background = nullptr;
     this->window = nullptr;
 }
+
 void Game::initWindow()
 {
     this->videoMode.height = 704;
@@ -76,7 +83,6 @@ void Game::initWindow()
 // Metodos
 void Game::pollEvents()
 {
-    // Event polling
     while(this->window->pollEvent(this->ev))
     {
         switch (this->ev.type)
@@ -91,31 +97,40 @@ void Game::pollEvents()
         }
     }
 }
+
+void Game::onInput()
+{
+    
+}
+
 void Game::onUpdate()
 {
+    // Move player
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-        this->player->move('u');
+        this->background->move('u');
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-        this->player->move('d');
+        this->background->move('d');
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-        this->player->move('r');
+        this->background->move('r');
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-        this->player->move('l');
+        this->background->move('l');
     
     this->pollEvents();
 }
-/**
+
+void Game::onRender()
+{
+    /**
  * -Limpiar frame previo 
  * -Renderizar objetos
  * -Mostrar frame en la ventana
  * @return void
  */
-void Game::onRender()
-{
     this->window->clear(); // Clear old frame
     // Draw game objets
+    this->background->render(*this->window);
     this->player->render(*this->window);
-    this->bob->render(*this->window);
+
     this->window->display(); // Tell the app that the window is done drawing
 }
 

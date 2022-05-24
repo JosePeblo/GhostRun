@@ -7,6 +7,7 @@
 class Player: public Entity
 {
     private:
+    sf::IntRect hitbox;
 
     public:
     Player(float,float,float,std::string);
@@ -20,7 +21,8 @@ class Player: public Entity
 Player::Player(float xpos,float ypos,float size,std::string texture)
                                             : Entity(xpos,ypos,size,texture)
 {
-
+    
+    
 }
 Player::~Player()
 {

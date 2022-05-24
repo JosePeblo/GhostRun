@@ -92,6 +92,7 @@ void Entity::initTexture()
 void Entity::initSprite()
 {
     this->entity.setTexture(this->texture);
+    this->entity.setTextureRect(sf::Rect(0,0,16,20));
     this->entity.scale(4.f,4.f);
 }
 void Entity::update()
