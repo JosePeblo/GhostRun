@@ -61,8 +61,8 @@ const bool Game::getWindowIsOpen() const
 
 void Game::initPlayer()
 {
-    this->background = new Player(0.f,0.f,64.f,"assets/textures/map.png");
-    this->player = new Player(320.f,320.f,1.f,"assets/textures/player.png");
+    this->background = new Player("assets/textures/map.png",sf::Vector2f(176.f,176.f),4);
+    this->player = new Player("assets/textures/player.png",sf::Vector2f(16.f,20.f),4,sf::Vector2f(320,305));
 }
 
 void Game::initVariables()

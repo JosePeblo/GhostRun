@@ -10,7 +10,8 @@ class Player: public Entity
     sf::IntRect hitbox;
 
     public:
-    Player(float,float,float,std::string);
+    Player(std::string,sf::Vector2f,int);
+    Player(std::string,sf::Vector2f,int,sf::Vector2f);
     ~Player();
     sf::Sprite get();
     void initTexture();
@@ -18,8 +19,14 @@ class Player: public Entity
     
     
 };
-Player::Player(float xpos,float ypos,float size,std::string texture)
-                                            : Entity(xpos,ypos,size,texture)
+
+Player::Player(std::string path_,sf::Vector2f size_,int scale_): Entity(path_,size_,scale_)
+{
+
+}
+
+Player::Player(std::string path_,sf::Vector2f size_,int scale_,sf::Vector2f coord_)
+                                                    : Entity(path_,size_,scale_,coord_)
 {
     
     
