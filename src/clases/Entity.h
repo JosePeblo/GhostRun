@@ -33,7 +33,7 @@ class Entity
     sf::Sprite sprite;
     sf::Texture texture;
     bool moving = false;
-    sf::IntRect currentFrame;
+    int currentFrame = 0;
     void setPosition(float,float);
     void initEntity();
     void animation();
@@ -79,21 +79,21 @@ void Entity::move(char direction)
     switch (direction)
     {
     case 'u':
-        coord.y += 7.f;
-    break;
-    case 'd':
         coord.y -= 7.f;
     break;
+    case 'd':
+        coord.y += 7.f;
+    break;
     case 'l':
-        coord.x += 7.f;
+        coord.x -= 7.f;
     break;
     case 'r':
-        coord.x -= 7.f;
+        coord.x += 7.f;
     break;
     }
     moving = true;
     this->sprite.setPosition(coord);
-    this->update();
+    //this->update();
 }
 void Entity::initEntity()
 {
@@ -114,16 +114,28 @@ void Entity::animation()
 {
     if(moving)
     {
-        this->sprite.setTextureRect(sf::IntRect(16,0,32,20));
+        
+        this->currentFrame += 16;
+        this->sprite.setTextureRect(sf::IntRect(sf::Vector2i(currentFrame,0),sf::Vector2i(size)));
+        if(currentFrame>=48)
+            currentFrame = 0;
+    }
+    else
+    {
+        currentFrame = 0;
+        this->sprite.setTextureRect(sf::IntRect(sf::Vector2i(currentFrame,0),sf::Vector2i(size)));
+
     }
 }
 void Entity::update()
 {
     this->animation();
+    this->moving = false;
 }
 void Entity::render(sf::RenderTarget& target)
 {
     target.draw(this->sprite);
+    
 }
 
 #endif

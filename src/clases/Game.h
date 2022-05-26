@@ -61,8 +61,8 @@ const bool Game::getWindowIsOpen() const
 
 void Game::initPlayer()
 {
-    this->player = new Player("assets/textures/map.png",sf::Vector2f(176.f,176.f),4);
-    this->background = new Player("assets/textures/player.png",sf::Vector2f(16.f,20.f),4,sf::Vector2f(320,305));
+    this->background = new Player("assets/textures/map.png",sf::Vector2f(176.f,176.f),4);
+    this->player = new Player("assets/textures/player.png",sf::Vector2f(16.f,20.f),4,sf::Vector2f(320,305));
 }
 
 void Game::initVariables()
@@ -107,13 +107,13 @@ void Game::onUpdate()
 {
     // Move player
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-        this->background->move('u');
+        this->player->move('u');
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-        this->background->move('d');
+        this->player->move('d');
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-        this->background->move('r');
+        this->player->move('r');
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-        this->background->move('l');
+        this->player->move('l');
     
     this->pollEvents();
     this->player->update();
@@ -129,8 +129,9 @@ void Game::onRender()
  */
     this->window->clear(); // Clear old frame
     // Draw game objets
-    this->player->render(*this->window);
     this->background->render(*this->window);
+    this->player->render(*this->window);
+    
 
     this->window->display(); // Tell the app that the window is done drawing
 }
