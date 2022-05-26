@@ -32,8 +32,11 @@ class Entity
     sf::Vector2f coord;
     sf::Sprite sprite;
     sf::Texture texture;
+    bool moving = false;
+    sf::IntRect currentFrame;
     void setPosition(float,float);
     void initEntity();
+    void animation();
 };
 Entity::Entity()
 {
@@ -88,11 +91,12 @@ void Entity::move(char direction)
         coord.x -= 7.f;
     break;
     }
+    moving = true;
     this->sprite.setPosition(coord);
+    this->update();
 }
 void Entity::initEntity()
 {
-    std::cout<<"hola mundo\n";
     // Initialize sprite
     this->sprite.setPosition(coord);
     // Initialize texture
@@ -102,12 +106,20 @@ void Entity::initEntity()
     }
     // Initialize sprite
     this->sprite.setTexture(this->texture);
-    this->sprite.setTextureRect(sf::Rect(sf::Vector2i(0,0),sf::Vector2i(size))); // 0,0,16,20
+    this->sprite.setTextureRect(sf::IntRect(sf::Vector2i(0,0),sf::Vector2i(size))); // 0,0,16,20
     
     this->sprite.scale(scale,scale);
 }
+void Entity::animation()
+{
+    if(moving)
+    {
+        this->sprite.setTextureRect(sf::IntRect(16,0,32,20));
+    }
+}
 void Entity::update()
 {
+    this->animation();
 }
 void Entity::render(sf::RenderTarget& target)
 {
