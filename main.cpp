@@ -13,7 +13,6 @@ int main()
         game.onUpdate();
         // Render
         game.onRender();
-            // Color(r,g,b,transparency)
     }
     return 0;
 }

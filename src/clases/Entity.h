@@ -47,7 +47,7 @@ Entity::Entity(std::string path_, sf::Vector2f size_, int scale_)
     path = path_;
     size = size_;
     scale = scale_;
-    coord = sf::Vector2f(1.f,1.f);
+    coord = sf::Vector2f(0.f,0.f);
     this->initEntity();
 }
 Entity::Entity(std::string path_, sf::Vector2f size_, int scale_,sf::Vector2f coord_)
