@@ -1,23 +1,38 @@
-#include <Entity.h>
+#ifndef MAP_H
+#define MAP_H
 
-class Map: public Entity
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/Audio.hpp>
+#include <SFML/Network.hpp>
+
+class Map
 {
 private:
-    /* data */
+    sf::Sprite background;
+    sf::Sprite foreground;
+    sf::Texture texture;
+    sf::Image walls;
 public:
-    Map(/* args */);
+    Map();
+    Map(std::string);
     ~Map();
-    Map(float,float,float,std::string);
-    ~Map();
+
     sf::Sprite get();
     void initTexture();
     void initSprite();
 };
 
-Map::Map(/* args */)
+Map::Map()
 {
 }
-
+Map::Map()
+{
+}
 Map::~Map()
 {
 }
+
+
+#endif
