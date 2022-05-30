@@ -8,8 +8,9 @@
 #include <SFML/Network.hpp>
 */
 #include <iostream>
-
 #include <Player.h>
+#include <Map.h>
+
 
 class Game
 {
@@ -19,7 +20,7 @@ class Game
     sf::Event ev;   ///////////////////////////////
 
     sf::RenderWindow* window;
-    Player* background;
+    Map* background;
     Player* player;
 
     // Private Functions
@@ -61,7 +62,7 @@ const bool Game::getWindowIsOpen() const
 
 void Game::initPlayer()
 {
-    this->background = new Player("assets/textures/map.png",sf::Vector2f(176.f,176.f),4);
+    this->background = new Map("assets/textures/map.png");
     this->player = new Player("assets/textures/player.png",sf::Vector2f(16.f,20.f),4,sf::Vector2f(320,305));
 }
 

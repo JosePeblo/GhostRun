@@ -11,13 +11,13 @@
 class Entity
 {
     public: 
-    Entity();
+    Entity(){};
     Entity(std::string,sf::Vector2f,int),
     Entity(std::string,sf::Vector2f,int,sf::Vector2f);
     ~Entity(){};
 
     void move(char);
-    void setCoord(sf::Vector2f);
+    //void setCoord(sf::Vector2f);
 
     void setScale(float);
     sf::Vector2f getPos();
@@ -38,10 +38,7 @@ class Entity
     void initEntity();
     void animation();
 };
-Entity::Entity()
-{
-    
-}
+
 Entity::Entity(std::string path_, sf::Vector2f size_, int scale_)
 {
     path = path_;
@@ -50,6 +47,7 @@ Entity::Entity(std::string path_, sf::Vector2f size_, int scale_)
     coord = sf::Vector2f(0.f,0.f);
     this->initEntity();
 }
+
 Entity::Entity(std::string path_, sf::Vector2f size_, int scale_,sf::Vector2f coord_)
 {
     path = path_;
@@ -58,22 +56,7 @@ Entity::Entity(std::string path_, sf::Vector2f size_, int scale_,sf::Vector2f co
     coord = coord_;
     this->initEntity();
 }
-sf::Sprite Entity::get()
-{
-    return sprite;
-}
-void Entity::setPosition(float x_pos,float y_pos)
-{
-    this->sprite.setPosition(sf::Vector2f(x_pos,y_pos));
-}
-void Entity::setScale(float scale_)
-{
-    this->sprite.setScale(sf::Vector2f(scale_,scale_));
-}
-sf::Vector2f Entity::getPos()
-{
-    return coord;
-}
+
 void Entity::move(char direction)
 {
     switch (direction)
@@ -93,8 +76,40 @@ void Entity::move(char direction)
     }
     moving = true;
     this->sprite.setPosition(coord);
-    //this->update();
 }
+
+void Entity::setScale(float scale_)
+{
+    this->sprite.setScale(sf::Vector2f(scale_,scale_));
+}
+
+sf::Vector2f Entity::getPos()
+{
+    return coord;
+}
+
+sf::Sprite Entity::get()
+{
+    return sprite;
+}
+
+void Entity::update()
+{
+    this->animation();
+    this->moving = false;
+}
+
+void Entity::render(sf::RenderTarget& target)
+{
+    target.draw(this->sprite);
+    
+}
+
+void Entity::setPosition(float x_pos,float y_pos)
+{
+    this->sprite.setPosition(sf::Vector2f(x_pos,y_pos));
+}
+
 void Entity::initEntity()
 {
     // Initialize sprite
@@ -110,6 +125,7 @@ void Entity::initEntity()
     
     this->sprite.scale(scale,scale);
 }
+
 void Entity::animation()
 {
     if(moving)
@@ -126,16 +142,6 @@ void Entity::animation()
         this->sprite.setTextureRect(sf::IntRect(sf::Vector2i(currentFrame,0),sf::Vector2i(size)));
 
     }
-}
-void Entity::update()
-{
-    this->animation();
-    this->moving = false;
-}
-void Entity::render(sf::RenderTarget& target)
-{
-    target.draw(this->sprite);
-    
 }
 
 #endif
