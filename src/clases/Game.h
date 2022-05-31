@@ -20,7 +20,7 @@ class Game
     sf::Event ev;   ///////////////////////////////
 
     sf::RenderWindow* window;
-    Map* background;
+    Map* map;
     Player* player;
 
     // Private Functions
@@ -49,7 +49,7 @@ Game::Game()
 
 Game::~Game()
 {
-    delete this->background;
+    delete this->map;
     delete this->player;
     delete this->window;
 }
@@ -62,14 +62,14 @@ const bool Game::getWindowIsOpen() const
 
 void Game::initPlayer()
 {
-    this->background = new Map("assets/textures/map.png");
     this->player = new Player("assets/textures/player.png",sf::Vector2f(16.f,20.f),4,sf::Vector2f(320,305));
+    this->map = new Map(*this->player,"assets/textures/map.png");    
 }
 
 void Game::initVariables()
 {
     this->player = nullptr;
-    this->background = nullptr;
+    this->map = nullptr;
     this->window = nullptr;
 }
 
@@ -130,7 +130,7 @@ void Game::onRender()
  */
     this->window->clear(); // Clear old frame
     // Draw game objets
-    this->background->render(*this->window);
+    this->map->render(*this->window);
     this->player->render(*this->window);
     
 

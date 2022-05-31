@@ -22,7 +22,7 @@ class Map
 {
 public:
     Map();
-    Map(std::string);//,const Player&
+    Map(const Player&,std::string);//,const Player&
     ~Map();
     sf::Sprite get();
     void update();
@@ -34,23 +34,25 @@ private:
     sf::Image wallMap;
     sf::Vector2f positon;
     std::vector<Line> lines;
-    std::vector<Player*> players;
+    Player* player;
     void initTexture();
     void initSprite();
     void initLines();
+    void checkCollision();
 };
 
 Map::Map()
 {
 }
 
-Map::Map(std::string path) //, const Player& player
+Map::Map(const Player& player,std::string path)
 {
     this->wallMap.loadFromFile("assets/mapWalls/mapSpiral.png");
     this->background.setPosition(sf::Vector2f(0.f,0.f));
     this->background.setScale(sf::Vector2f(4.f,4.f));
     this->texture.loadFromFile(path);
     this->background.setTexture(this->texture);
+    this->initLines();
 }
 
 Map::~Map()
@@ -87,6 +89,10 @@ void Map::initLines()
     //     }
     //     //std::cout<<'\n';
     // }
+}
+void Map::checkCollision()
+{
+    
 }
 
 #endif
