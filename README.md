@@ -25,10 +25,13 @@ El comando para compilar y enlazar todos los archivos se encuentra en formato ".
 ```
 ./run.bat
 ```
-En linux es necesario incluir previamente la librería de SFML con los siguientes comandos.
 ### En linux
+En linux es necesario incluir previamente la librería de SFML con los siguientes comandos.
 ```
 sudo apt-get install libsfml-dev
 chmod +x run.sh
 ./run.sh
 ```
+### En MacOS 
+No es compatible con MacOs
+
