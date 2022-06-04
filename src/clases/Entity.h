@@ -16,7 +16,7 @@ class Entity
     Entity(std::string,sf::Vector2f,int,sf::Vector2f);
     ~Entity(){};
 
-    void move(char);
+    virtual void move(char){};
     //void setCoord(sf::Vector2f);
 
     void setScale(float);
@@ -29,6 +29,9 @@ class Entity
     void setPositionX(float);
     void setPositionY(float);
     char getDirection();
+    void setDirection(char);
+    bool getIsMoving();
+    void setIsMoving(bool);
 
     private:
     std::string path;
@@ -60,27 +63,6 @@ Entity::Entity(std::string path_, sf::Vector2f size_, int scale_,sf::Vector2f co
     scale = scale_;
     coord = coord_;
     this->initEntity();
-}
-
-void Entity::move(char direction_)
-{
-    switch (direction_)
-    {
-    case 'u':
-        coord.y -= 7.f;
-    break;
-    case 'd':
-        coord.y += 7.f;
-    break;
-    case 'l':
-        coord.x -= 7.f;
-    break;
-    case 'r':
-        coord.x += 7.f;
-    break;
-    }
-    moving = true;
-    direction = direction_;
 }
 
 void Entity::setScale(float scale_)
@@ -169,4 +151,20 @@ char Entity::getDirection()
 {
     return direction;
 }
+
+void Entity::setDirection(char direction_)
+{
+    direction = direction_;
+}
+
+bool Entity::getIsMoving()
+{
+    return moving;
+}
+
+void Entity::setIsMoving(bool isMoving_)
+{
+    moving = isMoving_;
+}
+
 #endif

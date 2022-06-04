@@ -8,6 +8,7 @@ class Player: public Entity
 {
     private:
     sf::IntRect hitbox;
+    float speed = 7.f;
 
     public:
     Player(std::string,sf::Vector2f,int);
@@ -16,6 +17,7 @@ class Player: public Entity
     sf::Sprite get();
     void initTexture();
     void initSprite();
+    void move(char);
     
     
 };
@@ -38,6 +40,27 @@ Player::~Player()
 sf::Sprite Player::get()
 {
     return Entity::get();
+}
+void Player::move(char direction_)
+{
+
+    switch (direction_)
+    {
+    case 'u':
+        this->setPositionY(this->getPos().y-speed);
+    break;
+    case 'd':
+        this->setPositionY(this->getPos().y+speed);
+    break;
+    case 'l':
+        this->setPositionX(this->getPos().x-speed);
+    break;
+    case 'r':
+        this->setPositionX(this->getPos().x+speed);
+    break;
+    }
+    this->setIsMoving(true);
+    this->setDirection(direction_);
 }
 
 #endif
