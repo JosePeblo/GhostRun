@@ -24,6 +24,11 @@ class Entity
     virtual sf::Sprite get();
     void update();
     void render(sf::RenderTarget&);
+    sf::Vector2f getSize();
+    void setPosition(float,float);
+    void setPositionX(float);
+    void setPositionY(float);
+    char getDirection();
 
     private:
     std::string path;
@@ -34,7 +39,7 @@ class Entity
     sf::Texture texture;
     bool moving = false;
     int currentFrame = 0;
-    void setPosition(float,float);
+    char direction;
     void initEntity();
     void animation();
 };
@@ -57,9 +62,9 @@ Entity::Entity(std::string path_, sf::Vector2f size_, int scale_,sf::Vector2f co
     this->initEntity();
 }
 
-void Entity::move(char direction)
+void Entity::move(char direction_)
 {
-    switch (direction)
+    switch (direction_)
     {
     case 'u':
         coord.y -= 7.f;
@@ -75,7 +80,7 @@ void Entity::move(char direction)
     break;
     }
     moving = true;
-    this->sprite.setPosition(coord);
+    direction = direction_;
 }
 
 void Entity::setScale(float scale_)
@@ -96,6 +101,7 @@ sf::Sprite Entity::get()
 void Entity::update()
 {
     this->animation();
+    this->sprite.setPosition(coord);
     this->moving = false;
 }
 
@@ -104,10 +110,25 @@ void Entity::render(sf::RenderTarget& target)
     target.draw(this->sprite);
     
 }
+sf::Vector2f Entity::getSize()
+{
+    return sf::Vector2f(size.x*scale,size.y*scale);
+}
 
 void Entity::setPosition(float x_pos,float y_pos)
 {
-    this->sprite.setPosition(sf::Vector2f(x_pos,y_pos));
+    this->coord.x = x_pos;
+    this->coord.y = y_pos;
+}
+
+void Entity::setPositionX(float x_pos)
+{
+    this->coord.x = x_pos;
+}
+
+void Entity::setPositionY(float y_pos)
+{
+    this->coord.y = y_pos;
 }
 
 void Entity::initEntity()
@@ -144,4 +165,8 @@ void Entity::animation()
     }
 }
 
+char Entity::getDirection()
+{
+    return direction;
+}
 #endif

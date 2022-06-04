@@ -63,7 +63,7 @@ const bool Game::getWindowIsOpen() const
 void Game::initPlayer()
 {
     this->player = new Player("assets/textures/player.png",sf::Vector2f(16.f,20.f),4,sf::Vector2f(320,305));
-    this->map = new Map(*this->player,"assets/textures/map.png");    
+    this->map = new Map(*this->player,"assets/textures/map.png","assets/mapWalls/mapProto.png");    
 }
 
 void Game::initVariables()
@@ -108,16 +108,32 @@ void Game::onUpdate()
 {
     // Move player
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+    {
         this->player->move('u');
+        this->map->checkCollision();
+    }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+    {
         this->player->move('d');
+        this->map->checkCollision();
+    }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+    {
         this->player->move('r');
+        this->map->checkCollision();
+    }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+    {
         this->player->move('l');
+        this->map->checkCollision();
+    }
+
     
     this->pollEvents();
     this->player->update();
+    
+    
+
 }
 
 void Game::onRender()
