@@ -80,17 +80,10 @@ void Map::initLines()
 {
 
     int blackPixels;
-    
-    Line testWall;
-    testWall.pointA = sf::Vector2f(64,64);
-    testWall.pointB = sf::Vector2f(64,640);
-    walls.push_back(testWall);
-    ceilings.push_back(testWall);
-    /*
     walls.push_back({sf::Vector2f(64,64),sf::Vector2f(64,640)});
     walls.push_back({sf::Vector2f(640,64),sf::Vector2f(640,640)});
     ceilings.push_back({sf::Vector2f(64,64),sf::Vector2f(640,64)});
-    ceilings.push_back({sf::Vector2f(64,640),sf::Vector2f(640,640)});*/
+    ceilings.push_back({sf::Vector2f(64,640),sf::Vector2f(640,640)});
     
     for(int i = 1; i < wallMap.getSize().x; i++)
     {
