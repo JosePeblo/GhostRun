@@ -43,6 +43,8 @@ Una vez instalados los paquetes, se compila y corre el código en su directorio 
 g++ main.cpp -I ./src/clases/ -I /usr/local/Cellar/sfml/2.5.1_1/ -o main -lsfml-graphics -lsfml-window -lsfml-system
 ./main
 ```
-Es probable que se solicite autorizar a la terminal el permiso de obtener input de teclado, el programa solo la usa para mover al jugador con las flechas.
+#### Consideraciones
+* Es probable que se solicite autorizar a la terminal el permiso de obtener input de teclado, el programa solo la usa para mover al jugador con las flechas.
+* Es probable que la ruta en la que se instale SFML cambie, en ese caso usar el comando `brew info sfml` y reeplazar la ruta en el comando de compilado.
 
 
