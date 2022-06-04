@@ -78,22 +78,31 @@ void Map::initSprite()
 }
 void Map::initLines()
 {
-    /*
+
     int blackPixels;
+    
+    Line testWall;
+    testWall.pointA = sf::Vector2f(64,64);
+    testWall.pointB = sf::Vector2f(64,640);
+    walls.push_back(testWall);
+    ceilings.push_back(testWall);
+    /*
     walls.push_back({sf::Vector2f(64,64),sf::Vector2f(64,640)});
     walls.push_back({sf::Vector2f(640,64),sf::Vector2f(640,640)});
     ceilings.push_back({sf::Vector2f(64,64),sf::Vector2f(640,64)});
-    ceilings.push_back({sf::Vector2f(64,640),sf::Vector2f(640,640)});
+    ceilings.push_back({sf::Vector2f(64,640),sf::Vector2f(640,640)});*/
+    
     for(int i = 1; i < wallMap.getSize().x; i++)
     {
         for(int j = 1; j < wallMap.getSize().y; j++)
         {
+            /*
             if(wallMap.getPixel(j,i) == sf::Color::Black)
                 std::cout<<'#';
             else
                 std::cout<<' ';
-            
             blackPixels = 0;
+            */
             for(int k = 0; k<2;k++)
             {
                 for(int l = 0; l<2;l++)
@@ -105,9 +114,8 @@ void Map::initLines()
             if(blackPixels == 1)
                 std::cout<<blackPixels<<'\n';
         }
-        std::cout<<'\n';
+        //std::cout<<'\n';
     }
-    */
     /*wallMap.getPixel(j,i) == sf::Color::Black &&
             wallMap.getPixel(j+1,i) == sf::Color::Black &&
             wallMap.getPixel(j,i+1) == sf::Color::Black &&
