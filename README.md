@@ -33,5 +33,16 @@ chmod +x run.sh
 ./run.sh
 ```
 ### En MacOS 
-No es compatible con MacOs
+Para no utilizar Xcode se recomienda instalar SFML desde el gestor de paquetes Homebrew con los siguientes comandos desde la terminal.
+```
+$ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+$ brew install sfml
+```
+Una vez instalados los paquetes, se compila y corre el código en su directorio con los siguientes comandos.
+```
+$ g++ main.cpp -I ./src/clases/ -I /usr/local/Cellar/sfml/2.5.1_1/ -o main -lsfml-graphics -lsfml-window -lsfml-system
+$ ./main
+```
+Es probable que se solicite autorizar a la terminal el permiso de obtener input de teclado, el programa solo la usa para mover al jugador con las flechas.
+
 
