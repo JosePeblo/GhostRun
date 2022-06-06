@@ -62,7 +62,7 @@ const bool Game::getWindowIsOpen() const
 
 void Game::initPlayer()
 {
-    this->player = new Player("assets/textures/player.png",sf::Vector2f(16.f,20.f),4,sf::Vector2f(320,305));
+    this->player = new Player("assets/textures/player.png",sf::Vector2f(16.f,20.f),4,sf::Vector2f(320,355));
     this->map = new Map(*this->player,"assets/textures/map.png","assets/mapWalls/mapProto.png");    
 }
 

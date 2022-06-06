@@ -2,8 +2,8 @@
 #define MAP_H
 
 #include <iostream>
-
 #include <vector>
+#include <cmath>
 #include <Player.h>
 
 #include <SFML/Graphics.hpp>
@@ -14,7 +14,7 @@
 
 struct Line
 {
-    sf::Vector2f pointA, pointB;
+    sf::Vector2i pointA, pointB;
 };
 
 class Map
@@ -78,51 +78,176 @@ void Map::initSprite()
 }
 void Map::initLines()
 {
-
-    int blackPixels;
+    
+    sf::Color colors[2][2];
+    int blackPixels = 0;
+    bool end = false;
     Line auxLine;
-    auxLine.pointA = sf::Vector2f(64,64);
-    auxLine.pointB = sf::Vector2f(64,640);
+    /*
+    auxLine.pointA = sf::Vector2i(0,0);
+    auxLine.pointB = sf::Vector2i(0,640);
     walls.push_back(auxLine);
-    ceilings.push_back(auxLine);
+    auxLine.pointA = sf::Vector2i(640,64);
+    auxLine.pointB = sf::Vector2i(640,640);
+    walls.push_back(auxLine);
+    */
+    //ceilings.push_back(auxLine);
     /*
     walls.push_back({sf::Vector2f(64,64),sf::Vector2f(64,640)});
     walls.push_back({sf::Vector2f(640,64),sf::Vector2f(640,640)});
     ceilings.push_back({sf::Vector2f(64,64),sf::Vector2f(640,64)});
     ceilings.push_back({sf::Vector2f(64,640),sf::Vector2f(640,640)});
     */
-    for(int i = 1; i < wallMap.getSize().x; i++)
+    //std::cout<<wallMap.getSize().x;
+
+    // For ceilings
+    for(int i = 0; i < wallMap.getSize().y-1; i++) // For rows
     {
-        for(int j = 1; j < wallMap.getSize().y; j++)
+        for(int j = 0; j < wallMap.getSize().x-1; j++) // For columns
         {
-            /*
-            if(wallMap.getPixel(j,i) == sf::Color::Black)
-                std::cout<<'#';
-            else
-                std::cout<<' ';
             blackPixels = 0;
-            */
-            for(int k = 0; k<2;k++)
+            colors[0][0] = wallMap.getPixel(j,i);
+            colors[1][0] = wallMap.getPixel(j+1,i);
+            colors[0][1] = wallMap.getPixel(j,i+1);
+            colors[1][1] = wallMap.getPixel(j+1,i+1);
+            for(int k = 0; k<2; k++)
             {
-                for(int l = 0; l<2;l++)
+                for(int l = 0; l<2; l++)
                 {
-                    if(wallMap.getPixel(j+k,i+l) == sf::Color::Black)
+                    if(colors[k][l] == sf::Color::Black)
                         blackPixels++;
                 }
             }
             if(blackPixels == 1)
-                std::cout<<blackPixels<<'\n';
+            {
+                for(int k = 0; k<2; k++)
+                {
+                    for(int l = 0; l<2; l++)
+                    {
+                        if(colors[k][l] == sf::Color::Black)
+                        {
+                            if(!end)
+                            {
+                                auxLine.pointA = sf::Vector2i((j+k)*4,(i+l)*4);
+                                std::cout<<"punto: "<<(j+k)*4<<","<<(i+l)*4<<" iniciado\n";
+                                end = true;
+                            }
+                            else
+                            {
+                                auxLine.pointB = sf::Vector2i((j+k)*4,(i+l)*4);
+                                std::cout<<"punto: "<<(j+k)*4<<","<<(i+l)*4<<" finalizado\n";
+                                ceilings.push_back(auxLine);
+                                end = false;
+                            }
+
+                        }
+                    }
+                }
+            }
+            if(blackPixels == 3)
+            {
+                for(int k = 0; k<2; k++)
+                {
+                    for(int l = 0; l<2; l++)
+                    {
+                        if(colors[k][l] == sf::Color::White)
+                        {
+                            if(!end)
+                            {
+                                auxLine.pointA = sf::Vector2i((j+abs(k-1))*4,(i+abs(l-1))*4);
+                                std::cout<<"punto: "<<(j+abs(k-1))*4<<","<<(i+abs(l-1))*4<<" iniciado\n";
+                                end = true;
+                            }
+                            else
+                            {
+                                auxLine.pointB = sf::Vector2i((j+abs(k-1))*4,(i+abs(l-1))*4);
+                                std::cout<<"punto: "<<(j+abs(k-1))*4<<","<<(i+abs(l-1))*4<<" finalizado\n";
+                                ceilings.push_back(auxLine);
+                                end = false;
+                            }
+
+                        }
+                    }
+                }
+            }
         }
-        //std::cout<<'\n';
     }
-    /*wallMap.getPixel(j,i) == sf::Color::Black &&
-            wallMap.getPixel(j+1,i) == sf::Color::Black &&
-            wallMap.getPixel(j,i+1) == sf::Color::Black &&
-            wallMap.getPixel(j+1,i+1) == sf::Color::White*/
+    // For walls
+    for(int i = 0; i < wallMap.getSize().y-1; i++) // For rows
+    {
+        for(int j = 0; j < wallMap.getSize().x-1; j++) // For columns
+        {
+            blackPixels = 0;
+            colors[0][0] = wallMap.getPixel(i,j);
+            colors[1][0] = wallMap.getPixel(i+1,j);
+            colors[0][1] = wallMap.getPixel(i,j+1);
+            colors[1][1] = wallMap.getPixel(i+1,j+1);
+            for(int k = 0; k<2; k++)
+            {
+                for(int l = 0; l<2; l++)
+                {
+                    if(colors[k][l] == sf::Color::Black)
+                        blackPixels++;
+                }
+            }
+            if(blackPixels == 1)
+            {
+                for(int k = 0; k<2; k++)
+                {
+                    for(int l = 0; l<2; l++)
+                    {
+                        if(colors[k][l] == sf::Color::Black)
+                        {
+                            if(!end)
+                            {
+                                auxLine.pointA = sf::Vector2i((i+k)*4,(j+l)*4);
+                                std::cout<<"punto: "<<(i+k)*4<<","<<(j+l)*4<<" iniciado\n";
+                                end = true;
+                            }
+                            else
+                            {
+                                auxLine.pointB = sf::Vector2i((i+k)*4,(j+l)*4);
+                                std::cout<<"punto: "<<(i+k)*4<<","<<(j+l)*4<<" finalizado\n";
+                                walls.push_back(auxLine);
+                                end = false;
+                            }
+
+                        }
+                    }
+                }
+            }
+            if(blackPixels == 3)
+            {
+                for(int k = 0; k<2; k++)
+                {
+                    for(int l = 0; l<2; l++)
+                    {
+                        if(colors[k][l] == sf::Color::White)
+                        {
+                            if(!end)
+                            {
+                                auxLine.pointA = sf::Vector2i((i+abs(k-1))*4,(j+abs(l-1))*4);
+                                std::cout<<"punto: "<<(i+abs(k-1))*4<<","<<(j+abs(l-1))*4<<" iniciado\n";
+                                end = true;
+                            }
+                            else
+                            {
+                                auxLine.pointB = sf::Vector2i((i+abs(k-1))*4,(j+abs(l-1))*4);
+                                std::cout<<"punto: "<<(i+abs(k-1))*4<<","<<(j+abs(l-1))*4<<" finalizado\n";
+                                walls.push_back(auxLine);
+                                end = false;
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 void Map::checkCollision()
 {
-    for(int i = 0; i<2; i++)
+    for(int i = 0; i<walls.size(); i++)
     {
         // For vertical walls
         if(player->getPos().x<walls[i].pointA.x && 
@@ -141,7 +266,7 @@ void Map::checkCollision()
             }
         }   
     }
-    for(int i = 0; i<2; i++)
+    for(int i = 0; i<ceilings.size(); i++)
     {
         if(player->getPos().y<ceilings[i].pointA.y &&
         player->getPos().y+player->getSize().y>ceilings[i].pointA.y &&
