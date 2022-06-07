@@ -1,3 +1,13 @@
+/**
+ * /////////////pon el nombre del proyecto//////////////////////
+ * José Pablo Martínez Valdivia
+ * A01275676
+ * 10/06/2022
+ * 
+ * Este programa es un juego en 2d 
+ * 
+ * 
+ */
 #include <iostream>
 #include <Game.h>
 
