@@ -22,6 +22,13 @@ para que sea compilada, estas se encuentran como los ".dll" en el main y código
 ## Para compilar y correr el programa
 El comando para compilar y enlazar todos los archivos se encuentra en formato ".bat" para Windows y en ".sh" para linux.
 ### En windows
+Compilar y correr el programa en el directorio del main con los siguientes comandos de g++:
+```
+g++ main.cpp ./src/clases/Game.cpp ./src/clases/Enemy.cpp ./src/clases/Entity.cpp ./src/clases/Map.cpp ./src/clases/Player.cpp -Isrc/clases/ -Isrc/include -o main -Lsrc/lib -lsfml-graphics -lsfml-window -lsfml-system
+
+.\main.exe
+```
+ó alternativamente correr usando el ".bat"
 ```
 ./run.bat
 ```
