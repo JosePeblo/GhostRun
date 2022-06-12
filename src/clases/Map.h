@@ -37,13 +37,13 @@ public:
     void update();
     void render(sf::RenderTarget&);
     void checkCollision();
+    std::vector<Line> walls;
+    std::vector<Line> roofs;
 private:
     sf::Sprite background;
     sf::Texture texture;
     sf::Image wallMap;
     sf::Vector2f positon;
-    std::vector<Line> walls;
-    std::vector<Line> roofs;
     Player* player;
     void initTexture();
     void initSprite();

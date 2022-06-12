@@ -1,6 +1,6 @@
 #include <Enemy.h>
 
-Enemy::Enemy(std::string path_,sf::Vector2f size_,int scale_): Entity(path_,size_,scale_)
+Enemy::Enemy(std::string path_, sf::Vector2f size_, int scale_,sf::Vector2f coord_): Entity(path_,size_,scale_,coord_)
 {
 }
 

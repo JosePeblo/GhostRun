@@ -28,11 +28,6 @@ sf::Vector2f Entity::getPos()
     return coord;
 }
 
-sf::Sprite Entity::get()
-{
-    return sprite;
-}
-
 void Entity::update()
 {
     this->animation();
@@ -77,7 +72,7 @@ void Entity::initEntity()
     }
     // Initialize sprite
     this->sprite.setTexture(this->texture);
-    this->sprite.setTextureRect(sf::IntRect(sf::Vector2i(0,0),sf::Vector2i(size))); // 0,0,16,20
+    this->sprite.setTextureRect(sf::IntRect(sf::Vector2i(0,0),sf::Vector2i(size)));
     
     this->sprite.scale(scale,scale);
 }

@@ -14,7 +14,7 @@ class Player: public Entity
     Player(std::string,sf::Vector2f,int);
     Player(std::string,sf::Vector2f,int,sf::Vector2f);
     ~Player();
-    sf::Sprite get();
+
     void initTexture();
     void initSprite();
     void move(char);

@@ -15,10 +15,7 @@ Player::~Player()
 {
 
 }
-sf::Sprite Player::get()
-{
-    return Entity::get();
-}
+
 void Player::move(char direction_)
 {
 

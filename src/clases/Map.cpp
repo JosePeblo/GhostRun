@@ -184,41 +184,5 @@ void Map::initLines()
 }
 void Map::checkCollision()
 {
-    for(int i = 0; i < walls.size(); i++)
-    {
-        // For vertical walls
-        if(player->getPos().x<walls[i].pointA.x && 
-        player->getPos().x + player->getSize().x > walls[i].pointA.x &&
-        player->getPos().y < walls[i].pointB.y &&
-        player->getPos().y + player->getSize().y > walls[i].pointA.y)
-        {   
-            switch (player->getDirection())
-            {
-                case 'l':
-                    player->setPositionX(walls[i].pointA.x);
-                    break;
-                case 'r':
-                    player->setPositionX(walls[i].pointA.x-player->getSize().x);
-                    break;
-            }
-        }   
-    }
-    for(int i = 0; i < roofs.size(); i++)
-    {
-        if(player->getPos().y<roofs[i].pointA.y &&
-        player->getPos().y+player->getSize().y>roofs[i].pointA.y &&
-        player->getPos().x < roofs[i].pointB.x &&
-        player->getPos().x + player->getSize().x>roofs[i].pointA.x)
-        {
-            switch (player->getDirection())
-            {
-                case 'u':
-                    player->setPositionY(roofs[i].pointA.y);
-                    break;
-                case 'd':
-                    player->setPositionY(roofs[i].pointA.y-player->getSize().y);
-                    break;
-            }
-        }
-    }
+    
 }

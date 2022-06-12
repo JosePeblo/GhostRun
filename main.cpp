@@ -9,10 +9,13 @@
  * 
  */
 #include <iostream>
+#include <time.h>
 #include <Game.h>
 
 int main()
 {
+    // Iniciar semilla random
+    srand(time(NULL));
     // Engine
     Game game;
 

@@ -18,32 +18,30 @@ class Entity
     ~Entity(){};
 
     virtual void move(char) = 0;
-    //void setCoord(sf::Vector2f);
-
-    void setScale(float);
-    sf::Vector2f getPos();
-    virtual sf::Sprite get();
     void update();
     void render(sf::RenderTarget&);
-    sf::Vector2f getSize();
+    void setScale(float);
     void setPosition(float,float);
     void setPositionX(float);
     void setPositionY(float);
-    char getDirection();
     void setDirection(char);
-    bool getIsMoving();
     void setIsMoving(bool);
-
+    char getDirection();
+    bool getIsMoving();
+    sf::Vector2f getPos();
+    sf::Vector2f getSize();
+    
     private:
-    std::string path;
-    sf::Vector2f size;
     int scale;
-    sf::Vector2f coord;
-    sf::Sprite sprite;
-    sf::Texture texture;
-    bool moving = false;
     int currentFrame = 0;
+    bool moving = false;
     char direction;
+    sf::Vector2f size;
+    sf::Vector2f coord;
+    sf::Texture texture;
+    sf::Sprite sprite;
+    std::string path;
+
     void initEntity();
     void animation();
 };

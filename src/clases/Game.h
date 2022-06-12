@@ -1,16 +1,10 @@
 #ifndef GAME_H
 #define GAME_H
-/*
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/Network.hpp>
-*/
+
 #include <iostream>
 #include <Player.h>
+#include <Enemy.h>
 #include <Map.h>
-
 
 class Game
 {
@@ -18,15 +12,17 @@ class Game
     // Variables
     sf::VideoMode videoMode;
     sf::Event ev;  
-
     sf::RenderWindow* window;
     Map* map;
     Player* player;
+    //std::vector<Enemy> enemies;
+    Enemy* enemies[5];
 
     // Private Functions
     void initVariables();
     void initWindow();
     void initPlayer();
+    void initEnemies();
 
     public:
     // Constructores y destructores
@@ -36,6 +32,7 @@ class Game
     const bool getWindowIsOpen() const;
     void pollEvents();
     void onInput();
+    void checkCollisions(const std::vector<Line>&,const std::vector<Line>&);
     void onUpdate();
     void onRender();
 };
