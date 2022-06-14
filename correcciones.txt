@@ -1,0 +1,7 @@
+Sub-Competencia: 
+	
+Error original: 
+	
+Cambio realizado:
+	
+Líneas de código donde se ve la corrección:
