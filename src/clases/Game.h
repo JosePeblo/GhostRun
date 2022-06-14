@@ -18,7 +18,7 @@ class Game
     void onUpdate();
     void onRender();
     void updateEnemies();
-    bool checkCollision(Entity&,const std::vector<Line>&,const std::vector<Line>&);
+    bool checkCollision(Entity&,const std::vector<Line>&,const std::vector<Line>&,bool);
     bool checkCollision(Entity&,Entity&);
 
     private:
