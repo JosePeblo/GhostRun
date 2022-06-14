@@ -14,6 +14,7 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <Enemy.h>
 #include <Player.h>
 
 #include <SFML/Graphics.hpp>
@@ -31,22 +32,20 @@ class Map
 {
 public:
     Map();
-    Map(Player&,std::string,std::string);
-    ~Map();
-    sf::Sprite get();
-    void update();
+    Map(std::string,std::string);
+    ~Map(){}
+    void update(Player&);
+    void move(char);
     void render(sf::RenderTarget&);
-    void checkCollision();
-    std::vector<Line> walls;
-    std::vector<Line> roofs;
+    const std::vector<Line> getWalls() const;
+    const std::vector<Line> getRoofs() const;
 private:
     sf::Sprite background;
     sf::Texture texture;
     sf::Image wallMap;
     sf::Vector2f positon;
-    Player* player;
-    void initTexture();
-    void initSprite();
+    std::vector<Line> walls;
+    std::vector<Line> roofs;
     void initLines();
 };
 

@@ -114,3 +114,21 @@ void Entity::setIsMoving(bool isMoving_)
 {
     moving = isMoving_;
 }
+
+void Entity::setSpeed(float speed_)
+{
+    speed = speed_;
+}
+
+void Entity::setLife(int life_)
+{
+    life = life_;
+}
+int Entity::getLife()
+{
+    return life;
+}
+float Entity::getSpeed()
+{
+    return speed;
+}

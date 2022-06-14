@@ -4,9 +4,8 @@ Map::Map()
 {
 }
 
-Map::Map(Player& player_,std::string mapPath,std::string wallPath)
+Map::Map(std::string mapPath,std::string wallPath)
 {
-    player = &player_;
     this->wallMap.loadFromFile(wallPath);
     this->background.setPosition(sf::Vector2f(0.f,0.f));
     this->background.setScale(sf::Vector2f(4.f,4.f));
@@ -15,12 +14,9 @@ Map::Map(Player& player_,std::string mapPath,std::string wallPath)
     this->initLines();
 }
 
-Map::~Map()
+void Map::update(Player& player)
 {
-}
-
-void Map::update()
-{
+    this->background.setPosition(-(player.getPos()-player.getFov()));
 }
 
 void Map::render(sf::RenderTarget& target)
@@ -28,13 +24,6 @@ void Map::render(sf::RenderTarget& target)
     target.draw(this->background);
 }
 
-void Map::initTexture()
-{
-}
-
-void Map::initSprite()
-{
-}
 void Map::initLines()
 {
     sf::Color colors[2][2];
@@ -112,9 +101,9 @@ void Map::initLines()
         }
     }
     // For walls
-    for(int i = 0; i < wallMap.getSize().y-1; i++) // For rows
+    for(int i = 0; i < wallMap.getSize().x-1; i++) // For rows
     {
-        for(int j = 0; j < wallMap.getSize().x-1; j++) // For columns
+        for(int j = 0; j < wallMap.getSize().y-1; j++) // For columns
         {
             blackPixels = 0;
             colors[0][0] = wallMap.getPixel(i,j);
@@ -182,7 +171,12 @@ void Map::initLines()
         }
     }
 }
-void Map::checkCollision()
+
+const std::vector<Line> Map::getWalls() const
 {
-    
+    return walls;
+}
+const std::vector<Line> Map::getRoofs() const
+{
+    return roofs;
 }

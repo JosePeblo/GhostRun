@@ -18,7 +18,7 @@ class Entity
     ~Entity(){};
 
     virtual void move(char) = 0;
-    void update();
+    virtual void update();
     void render(sf::RenderTarget&);
     void setScale(float);
     void setPosition(float,float);
@@ -26,15 +26,20 @@ class Entity
     void setPositionY(float);
     void setDirection(char);
     void setIsMoving(bool);
+    void setSpeed(float);
+    void setLife(int);
+    int getLife();
+    float getSpeed();
     char getDirection();
     bool getIsMoving();
     sf::Vector2f getPos();
     sf::Vector2f getSize();
     
     private:
+    int life;
+    float speed;
     int scale;
     int currentFrame = 0;
-    bool moving = false;
     char direction;
     sf::Vector2f size;
     sf::Vector2f coord;
@@ -43,7 +48,11 @@ class Entity
     std::string path;
 
     void initEntity();
+
+    protected:
+    
     void animation();
+    bool moving = false;
 };
 
 #endif

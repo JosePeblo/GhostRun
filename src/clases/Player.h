@@ -7,17 +7,16 @@
 class Player: public Entity
 {
     private:
-    sf::IntRect hitbox;
-    float speed = 7.f;
+        sf::Vector2f fov = {320,320};
 
     public:
-    Player(std::string,sf::Vector2f,int);
-    Player(std::string,sf::Vector2f,int,sf::Vector2f);
-    ~Player();
+        Player(std::string,sf::Vector2f,int,int,float);
+        Player(std::string,sf::Vector2f,int,sf::Vector2f,int,float);
+        ~Player();
 
-    void initTexture();
-    void initSprite();
-    void move(char);
+        void move(char);
+        void update();
+        sf::Vector2f getFov();
 };
 
 #endif

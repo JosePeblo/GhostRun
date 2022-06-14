@@ -41,16 +41,17 @@ void Game::initWindow()
 
 void Game::initPlayer()
 {
-    this->player = new Player("assets/textures/player.png",sf::Vector2f(16.f,16.f),4,sf::Vector2f(320,355));
-    this->map = new Map(*this->player,"assets/mapWalls/mapSpiral.png","assets/mapWalls/mapSpiral.png");    
+    this->player = new Player("assets/textures/player.png",sf::Vector2f(16.f,20.f),4,sf::Vector2f(324,320),20,7.f);
+    this->map = new Map("assets/textures/mansion.png","assets/textures/mansion.png");    
 }
 
 void Game::initEnemies()
 {
-    for(int i = 0; i < 5; i++)
+    for(int i = enemyCount; i < 5; i++)
     {
-        enemies[i] = new Enemy("assets/textures/void.png",sf::Vector2f(16.f,16.f),4,sf::Vector2f(rand()%780+1,rand()%780+1));
+        enemies.push_back(new Enemy("assets/textures/phantom.png",sf::Vector2f(16.f,16.f),4,sf::Vector2f(rand()%780+1,rand()%780+1),20,3.f));
     }
+    enemyCount = enemies.size();
 }
 
 void Game::pollEvents()
@@ -70,48 +71,14 @@ void Game::pollEvents()
     }
 }
 
-void Game::onInput()
+void Game::updateEnemies()
 {
-}
-void Game::checkCollisions(const std::vector<Line>& walls,const std::vector<Line>& roofs)
-{
-    for(int i = 0; i < walls.size(); i++)
-    {
-        // For vertical walls
-        if(player->getPos().x<walls[i].pointA.x && 
-        player->getPos().x + player->getSize().x > walls[i].pointA.x &&
-        player->getPos().y < walls[i].pointB.y &&
-        player->getPos().y + player->getSize().y > walls[i].pointA.y)
-        {   
-            switch (player->getDirection())
-            {
-                case 'l':
-                    player->setPositionX(walls[i].pointA.x);
-                    break;
-                case 'r':
-                    player->setPositionX(walls[i].pointA.x-player->getSize().x);
-                    break;
-            }
-        }   
-    }
-    for(int i = 0; i < roofs.size(); i++)
-    {
-        if(player->getPos().y<roofs[i].pointA.y &&
-        player->getPos().y+player->getSize().y>roofs[i].pointA.y &&
-        player->getPos().x < roofs[i].pointB.x &&
-        player->getPos().x + player->getSize().x>roofs[i].pointA.x)
-        {
-            switch (player->getDirection())
-            {
-                case 'u':
-                    player->setPositionY(roofs[i].pointA.y);
-                    break;
-                case 'd':
-                    player->setPositionY(roofs[i].pointA.y-player->getSize().y);
-                    break;
-            }
-        }
-    }
+    enemyCount = enemies.size();
+    if(enemyCount < 5)
+        this->initEnemies();
+    this->enemies[0]->findPlayer(*player);
+    if(this->checkCollision(*player,*enemies[0]))
+        this->window->close();
 }
 
 void Game::onUpdate()
@@ -120,50 +87,31 @@ void Game::onUpdate()
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
     {
         this->player->move('u');
-        this->checkCollisions(map->walls,map->roofs);
+        this->checkCollision(*player,map->getRoofs(),map->getWalls());
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
     {
         this->player->move('d');
-        this->checkCollisions(map->walls,map->roofs);
+        this->checkCollision(*player,this->map->getRoofs(),this->map->getWalls());
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
         this->player->move('r');
-        this->checkCollisions(map->walls,map->roofs);
+        this->checkCollision(*player,this->map->getRoofs(),this->map->getWalls());
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     {
         this->player->move('l');
-        this->checkCollisions(map->walls,map->roofs);
-    }
-    
-    for(int i = 0; i<5; i++)
-    {
-    char borrame;
-    int borrameigual = rand()%4+1;
-    switch (borrameigual)
-    {
-    case 1:
-        borrame = 'u';
-    break;
-    case 2:
-        borrame = 'd';
-    break;
-    case 3:
-        borrame = 'l';
-    break;
-    case 4:
-        borrame = 'r';
-    break;
+        this->checkCollision(*player,this->map->getRoofs(),this->map->getWalls());
     }
 
-    this->enemies[i]->move(borrame);
-    this->enemies[i]->update();
-    }
+    //para matar//    this->enemies.erase(enemies.begin(),enemies.begin()+1);
 
+    this->updateEnemies();
     this->pollEvents();
     this->player->update();
+    this->map->update(*player);
+    
 }
 
 void Game::onRender()
@@ -174,15 +122,78 @@ void Game::onRender()
  * -Mostrar frame en la ventana
  * @return void
  */
-    this->window->clear(); // Clear old frame
-    // Draw game objets
+    this->window->clear();
     this->map->render(*this->window);
     this->player->render(*this->window);
     for(int i = 0; i < 5; i++)
     {
         this->enemies[i]->render(*this->window);
     }
-    
+    this->window->display();
+}
+bool Game::checkCollision(Entity& entity,Entity& colide)
+{
+    Line auxLine;
+    std::vector<Line> roofs;
+    std::vector<Line> walls;
+    roofs.reserve(2);
+    walls.reserve(2);
 
-    this->window->display(); // Tell the app that the window is done drawing
+    auxLine.pointA = sf::Vector2i(colide.getPos());
+    auxLine.pointB = sf::Vector2i(colide.getPos().x+colide.getSize().x,colide.getPos().y);
+    roofs.emplace_back(auxLine);
+    auxLine.pointA = sf::Vector2i(colide.getPos().x,colide.getPos().y+colide.getSize().y);
+    auxLine.pointB = sf::Vector2i(colide.getPos().x+colide.getSize().x,colide.getPos().y+colide.getSize().y);
+    roofs.emplace_back(auxLine);
+    auxLine.pointA = sf::Vector2i(colide.getPos());
+    auxLine.pointB = sf::Vector2i(colide.getPos().x,colide.getPos().y+colide.getSize().y);
+    walls.emplace_back(auxLine);
+    auxLine.pointA = sf::Vector2i(colide.getPos().x+colide.getSize().x,colide.getPos().y);
+    auxLine.pointB = sf::Vector2i(colide.getPos().x+colide.getSize().x,colide.getPos().y+colide.getSize().y);
+    walls.emplace_back(auxLine);
+    return checkCollision(entity,roofs,walls);
+}
+bool Game::checkCollision(Entity& entity,const std::vector<Line>& roofs,const std::vector<Line>& walls)
+{
+    bool colide = false;
+    for(int i = 0; i < walls.size(); i++)
+    {
+        // For vertical walls
+        if(entity.getPos().x<walls[i].pointA.x && 
+        entity.getPos().x + entity.getSize().x > walls[i].pointA.x &&
+        entity.getPos().y < walls[i].pointB.y &&
+        entity.getPos().y + entity.getSize().y > walls[i].pointA.y)
+        {   
+            colide = true;
+            switch (entity.getDirection())
+            {
+                case 'l':
+                    entity.setPositionX(walls[i].pointA.x);
+                    break;
+                case 'r':
+                    entity.setPositionX(walls[i].pointA.x-entity.getSize().x);
+                    break;
+            }
+        }   
+    }
+    for(int i = 0; i < roofs.size(); i++)
+    {
+        if(entity.getPos().y<roofs[i].pointA.y &&
+        entity.getPos().y+entity.getSize().y>roofs[i].pointA.y &&
+        entity.getPos().x < roofs[i].pointB.x &&
+        entity.getPos().x + entity.getSize().x>roofs[i].pointA.x)
+        {
+            colide = true;
+            switch (entity.getDirection())
+            {
+                case 'u':
+                    entity.setPositionY(roofs[i].pointA.y);
+                    break;
+                case 'd':
+                    entity.setPositionY(roofs[i].pointA.y-entity.getSize().y);
+                    break;
+            }
+        }
+    }
+    return colide;
 }

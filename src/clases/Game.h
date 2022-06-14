@@ -8,22 +8,6 @@
 
 class Game
 {
-    private:
-    // Variables
-    sf::VideoMode videoMode;
-    sf::Event ev;  
-    sf::RenderWindow* window;
-    Map* map;
-    Player* player;
-    //std::vector<Enemy> enemies;
-    Enemy* enemies[5];
-
-    // Private Functions
-    void initVariables();
-    void initWindow();
-    void initPlayer();
-    void initEnemies();
-
     public:
     // Constructores y destructores
     Game();
@@ -31,10 +15,28 @@ class Game
     // Metodos
     const bool getWindowIsOpen() const;
     void pollEvents();
-    void onInput();
-    void checkCollisions(const std::vector<Line>&,const std::vector<Line>&);
     void onUpdate();
     void onRender();
+    void updateEnemies();
+    bool checkCollision(Entity&,const std::vector<Line>&,const std::vector<Line>&);
+    bool checkCollision(Entity&,Entity&);
+
+    private:
+    // Variables
+    sf::VideoMode videoMode;
+    sf::Event ev;  
+    sf::RenderWindow* window;
+    Map* map;
+    Player* player;
+    std::vector<Enemy*> enemies;
+    int enemyCount = 0;
+
+    // Private Functions
+    void initVariables();
+    void initWindow();
+    void initPlayer();
+    void initEnemies();
+
 };
 
 #endif

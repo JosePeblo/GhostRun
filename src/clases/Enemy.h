@@ -2,13 +2,17 @@
 #define ENEMY_H
 
 #include <Entity.h>
+#include <Player.h>
 class Enemy: public Entity
 {
 private:
-    float speed = 5.f;
+    bool inFocus;
+    float distance(float,float);
 public:
-    Enemy(std::string,sf::Vector2f,int,sf::Vector2f);
+    Enemy(std::string,sf::Vector2f,int,sf::Vector2f,int,float);
     ~Enemy();
+    void findPlayer(Player&);
+    void update();
     void move(char);
 };
 
