@@ -36,8 +36,11 @@ g++ main.cpp ./src/clases/Game.cpp ./src/clases/Enemy.cpp ./src/clases/Entity.cp
 En linux es necesario incluir previamente la librería de SFML con los siguientes comandos.
 ```
 sudo apt-get install libsfml-dev
-chmod +x run.sh
-./run.sh
+```
+Posteriormente se puede correr el programa con los siguientes comandos 
+```
+g++ main.cpp ./src/clases/Game.cpp ./src/clases/Enemy.cpp ./src/clases/Entity.cpp ./src/clases/Map.cpp ./src/clases/Player.cpp -Isrc/clases/ -Isrc/include -o main -lsfml-graphics -lsfml-window -lsfml-system
+./main
 ```
 ### En MacOS 
 Para no utilizar Xcode se recomienda instalar SFML desde el gestor de paquetes Homebrew con los siguientes comandos desde la terminal.
