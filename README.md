@@ -1,8 +1,11 @@
 # TC1030_Jose_Pablo
-## _nombre por definir_ 
-Es un RPG inspirado en "Pokemon" y la serie de juegos para nintendo DS de 
-"Mario & Luigi". El proyecto pretende presentar un mapa interactivo con enemigos
-y un sistema de batallas por turnos.
+
+## _Lame ghost game_ 
+Es un simulador de caminar en 2d donde escapas de un fantasma, 
+tienes que sobrevivir hasta que te toque el fantasma o te aburras de la falta de gameplay y objetivos.
+En el caso de que este te toque: EL JUEGO SE VA A CERRAR!!! (Puede que el fantasma spawnee al lado tuyo, una disculpa)
+
+La modelación de este proyecto incluye clases para el juego, las entidades y el mapa.
 
 ## Código
 La función main solo crea el objeto juego y entra a un bucle de actualización y renderizado hasta que la ventana cierre. **Mi código** y clases modeladas se encuentran en los archivos del folder:

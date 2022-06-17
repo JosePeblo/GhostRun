@@ -1,5 +1,24 @@
+/**
+ * Lame ghost game
+ * José Pablo Martínez Valdivia
+ * A01275676
+ * 17/06/2022
+ * 
+ * El objeto juego se encarga de definir la lógica del juego y crear los demás
+ * objetos que correrán dentro de el. El estandar en la industria de los juegos
+ * es la creación de un objeto Game que se sus taréas se resumen en Update y 
+ * Render. Toda la lógica se llama en la función Update y al final Render se 
+ * encarga de dibujar en la ventana.
+ */
 #ifndef GAME_H
 #define GAME_H
+
+// Librerías de SFML
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/Audio.hpp>
+#include <SFML/Network.hpp>
 
 #include <iostream>
 #include <Player.h>
@@ -12,14 +31,14 @@ class Game
     // Constructores y destructores
     Game();
     ~Game();
-    // Metodos
+    // Métodos
     const bool getWindowIsOpen() const;
     void pollEvents();
     void onUpdate();
     void onRender();
     void updateEnemies();
     bool checkCollision(Entity&,const std::vector<Line>&,const std::vector<Line>&,bool);
-    bool checkCollision(Entity&,Entity&);
+    bool checkCollision(Player&,Entity&);
 
     private:
     // Variables
@@ -28,13 +47,13 @@ class Game
     sf::RenderWindow* window;
     Map* map;
     Player* player;
-    std::vector<Enemy*> enemies;
-    int enemyCount = 0;
+    Enemy* enemy;
 
-    // Private Functions
+    // Funciones privadas
     void initVariables();
     void initWindow();
     void initPlayer();
+    void initMap();
     void initEnemies();
 
 };
