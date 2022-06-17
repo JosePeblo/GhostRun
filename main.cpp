@@ -19,7 +19,6 @@
  * Link a la documentación de SFML https://www.sfml-dev.org/documentation/2.5.1/
  */
 #include <iostream>
-#include <conio.h>
 #include <time.h>
 #include <Game.h>
 
@@ -39,6 +38,6 @@ int main()
         game.onRender();
     }
     std::cout<<"Que mal, has muerto\n";
-    getch();
+    std::cin.get();
     return 0;
 }
