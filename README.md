@@ -3,7 +3,7 @@
 ## _Lame ghost game_ 
 Es un simulador de caminar en 2d donde escapas de un fantasma, 
 tienes que sobrevivir hasta que te toque el fantasma o te aburras de la falta de gameplay y objetivos.
-En el caso de que este te toque: EL JUEGO SE VA A CERRAR!!! (Puede que el fantasma spawnee al lado tuyo, una disculpa)
+En el caso de que este te toque: EL JUEGO SE VA A CERRAR!!! (Puede que el fantasma spawnee al lado tuyo o que la lógica de colisiones se rompa, una disculpa)
 
 La modelación de este proyecto incluye clases para el juego, las entidades y el mapa.
 
