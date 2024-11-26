@@ -1,17 +1,9 @@
-# TC1030_Jose_Pablo
-
-## _Lame ghost game_ 
-Es un simulador de caminar en 2d donde escapas de un fantasma, 
-tienes que sobrevivir hasta que te toque el fantasma o te aburras de la falta de gameplay y objetivos.
-En el caso de que este te toque: EL JUEGO SE VA A CERRAR!!! (Puede que el fantasma spawnee al lado tuyo o que la lógica de colisiones se rompa, una disculpa)
-
-La modelación de este proyecto incluye clases para el juego, las entidades y el mapa.
+# GhostRun
 
 ## Código
-La función main solo crea el objeto juego y entra a un bucle de actualización y renderizado hasta que la ventana cierre. **Mi código** y clases modeladas se encuentran en los archivos del folder:
+La función main solo crea el objeto juego y entra a un bucle de actualización y renderizado hasta que la ventana cierre. **Mi código** y clases modeladas se encuentran en los archivos del directorio:
 
 >/src/clases
-
 
 ## Dependencias
 La interfaz gráfica está manejada por la librería de 
@@ -20,7 +12,6 @@ para que sea compilada, estas se encuentran como los ".dll" en el main y código
 
 >/src/include/SFML\
 >/src/lib
-
 
 ## Para compilar y correr el programa
 El comando para compilar y enlazar todos los archivos se encuentra en formato ".bat" para Windows y en ".sh" para linux.
